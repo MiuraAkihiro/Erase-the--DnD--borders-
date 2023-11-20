@@ -352,11 +352,11 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 -analyzer:"E:/Programs/2022.3.6f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"E:/Programs/2022.3.6f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
-"Assets/Scripts/CameraControls.cs"
-"Assets/Scripts/camMovement.cs"
-"Assets/Scripts/PlayerMoving.cs"
-"Assets/Scripts/НенужнаяЕбля/PlayerMove.cs"
-"Assets/Scripts/НенужнаяЕбля/UpDownCameraMove.cs"
+"Assets/Scripts/AlternativeCameraScript/CameraControls.cs"
+"Assets/Scripts/AlternativeCameraScript/CameraMoving.cs"
+"Assets/Scripts/AlternativeCameraScript/ZoomCamera.cs"
+"Assets/Scripts/FreeCameraScript/CamMovement.cs"
+"Assets/Scripts/FreeCameraScript/PlayerMoving.cs"
 -langversion:9.0
 
 /deterministic

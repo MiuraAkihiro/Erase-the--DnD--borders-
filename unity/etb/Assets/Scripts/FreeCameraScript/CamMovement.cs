@@ -1,7 +1,6 @@
 using UnityEngine;
-using System.Collections;
 
-public class camMovement : MonoBehaviour
+public class CamMovement : MonoBehaviour
 {
     float camSens = 100f;
     public Transform playerBody;
@@ -18,10 +17,12 @@ public class camMovement : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * camSens * Time.deltaTime * 10;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); 
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+
+
         /*Vector3 p = GetBaseInput();
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -41,7 +42,7 @@ public class camMovement : MonoBehaviour
         // Vector3 newPosition = transform.position;
         // ability to move up
         
-        transform.Translate(p);*/     
+        transform.Translate(p);*/
     }
     /*private Vector3 GetBaseInput()
     { //returns the basic values, if it's 0 than it's not active.
