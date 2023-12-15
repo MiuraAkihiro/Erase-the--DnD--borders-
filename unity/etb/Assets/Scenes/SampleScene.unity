@@ -592,11 +592,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280864e27a453134e9adf931b812867e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 15
+  panSpeed: 0.5
   zoomSpeed: 15
-  minZoom: 20
+  minZoom: 10
   maxZoom: 120
-  rotationSpeed: 5
+  rotationSpeed: 2
 --- !u!1 &195553506 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 594508cbc4780d5489816fc1e8ef4e58, type: 3}
@@ -659,6 +659,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc102599c16613439d62ed95aafae04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &195553515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195553506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e015c54a819224b8cfd292e99e2eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imageUrl: https://www.motoroller.od.ua/dd/characters/character_4nps.png
+  targetRenderer: {fileID: 195553516}
+--- !u!23 &195553516 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 594508cbc4780d5489816fc1e8ef4e58, type: 3}
+  m_PrefabInstance: {fileID: 1299439933}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &195639559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c1aca4b99f6a19c4591b751fd185f1b3, type: 3}
@@ -2956,6 +2975,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594508cbc4780d5489816fc1e8ef4e58, type: 3}
       insertIndex: -1
       addedObject: {fileID: 195553513}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 594508cbc4780d5489816fc1e8ef4e58, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 195553515}
   m_SourcePrefab: {fileID: 100100000, guid: 594508cbc4780d5489816fc1e8ef4e58, type: 3}
 --- !u!1001 &1316644941
 PrefabInstance:

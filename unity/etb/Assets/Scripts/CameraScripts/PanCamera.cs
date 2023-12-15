@@ -2,11 +2,11 @@
 
 public class PanCamera : MonoBehaviour
 {
-    public float panSpeed = 20f;
-    public float zoomSpeed = 5f;
-    public float minZoom = 20f;
+    public float panSpeed = 0.5f;
+    public float zoomSpeed = 15f;
+    public float minZoom = 10f;
     public float maxZoom = 120f;
-    public float rotationSpeed = 5f;
+    public float rotationSpeed = 2f;
 
     private Vector3 lastPanPosition;
     private bool isRotating;
