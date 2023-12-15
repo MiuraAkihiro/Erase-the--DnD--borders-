@@ -58,11 +58,19 @@
     <Analyzer Include="E:\Programs\2022.3.6f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AlternativeCameraScript\ZoomCamera.cs" />
-    <Compile Include="Assets\Scripts\AlternativeCameraScript\CameraMoving.cs" />
-    <Compile Include="Assets\Scripts\FreeCameraScript\PlayerMoving.cs" />
-    <Compile Include="Assets\Scripts\AlternativeCameraScript\CameraControls.cs" />
-    <Compile Include="Assets\Scripts\FreeCameraScript\CamMovement.cs" />
+    <Compile Include="Assets\Scripts\SelectionObjects\ObjectSelections.cs" />
+    <Compile Include="Assets\Scripts\SelectionObjects\DragSelection.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\CameraSwitcher.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\PanCamera.cs" />
+    <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
+    <Compile Include="Assets\Scripts\CameraScripts\FirstPersonCamera.cs" />
+    <Compile Include="Assets\Scripts\SelectionObjects\ObjectClick.cs" />
+    <Compile Include="Assets\Scripts\SelectionObjects\Object.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
+    <None Include="Assets\QuickOutline\Readme.txt" />
+    <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -701,6 +709,9 @@
     <Reference Include="Unity.VisualScripting.SettingsProvider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.SettingsProvider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Performance.Profile-Analyzer.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Performance.Profile-Analyzer.Editor.dll</HintPath>
     </Reference>
@@ -748,6 +759,9 @@
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
