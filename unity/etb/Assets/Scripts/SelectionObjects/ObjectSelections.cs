@@ -22,9 +22,12 @@ public class ObjectSelections : MonoBehaviour
 
     public void ClickSelect(GameObject objectToAdd)
     {
-        DeselectAll();
-        objectSelected.Add(objectToAdd);
-        objectToAdd.transform.GetComponent<Outline>().enabled = true;
+        if (!objectSelected.Contains(objectToAdd))
+        {
+            DeselectAll();
+            objectSelected.Add(objectToAdd);
+            objectToAdd.transform.GetComponent<Outline>().enabled = true;
+        }
     }
     public void ShiftClickSelect(GameObject objectToAdd)
     {

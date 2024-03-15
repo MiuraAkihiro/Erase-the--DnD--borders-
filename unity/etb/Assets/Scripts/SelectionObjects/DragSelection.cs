@@ -20,25 +20,24 @@ public class DragSelection : MonoBehaviour
         DrawVisual();
     }
 
-
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) ) 
         {
             startPosition = Input.mousePosition;
             selectionBox = new Rect();
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && ObjectSelections.Instance.objectSelected.Count < 1)
         {
             endPosition = Input.mousePosition;
             DrawVisual();
             DrawSelection();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0)) 
         {
-            SelectObjects();
+            SelectObjects(); 
             startPosition = Vector2.zero;
             endPosition = Vector2.zero;
             DrawVisual();
