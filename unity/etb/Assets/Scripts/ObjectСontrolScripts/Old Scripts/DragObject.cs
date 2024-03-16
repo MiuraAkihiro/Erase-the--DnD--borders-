@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class DragObject : MonoBehaviour
 {
+    private GameObject panCameraObject; // Ссылка на объект с компонентом PanCamera
+    private PanCamera panCameraScript; // Ссылка на компонент PanCamera
+
     private Vector3 mOffset;
     private float mZCoord;
     private Rigidbody rb;
@@ -13,8 +16,22 @@ public class DragObject : MonoBehaviour
     // Parameters for speed control
     public float maxSpeed = 10f;
 
+
+
     void Start()
     {
+        // Находим объект с компонентом PanCamera
+        panCameraObject = GameObject.Find("Virtual Camera 3"); // Замените "NameOfPanCameraObject" на имя объекта с PanCamera
+
+        if (panCameraObject != null)
+        {
+            panCameraScript = panCameraObject.GetComponent<PanCamera>();
+        }
+        else
+        {
+            Debug.LogError("Object with PanCamera component not found!");
+        }
+
         rb = GetComponent<Rigidbody>();
         myCollider = GetComponent<Collider>();
         originalSpeed = rb.velocity.magnitude; // Store the original speed
@@ -24,6 +41,11 @@ public class DragObject : MonoBehaviour
     {
         mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
         mOffset = transform.position - GetMouseAsWorldPoint();
+        // Выключаем скрипт PanCamera
+        if (panCameraScript != null)
+        {
+            panCameraScript.enabled = false;
+        }
     }
 
     private void OnMouseUp()
