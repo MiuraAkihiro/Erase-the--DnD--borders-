@@ -5,89 +5,65 @@ public class DragObjects : MonoBehaviour
     private GameObject panCameraObject;
     private PanCamera panCameraScript;
 
-    private Vector3 screenPoint;
-    private Vector3 offset;
+    private Rigidbody rb;
+
+    private Vector3 mOffset;
+    private Vector3 newPos;
+    private Quaternion newRot;
 
     private float mZCoord;
-    private float defaultY;
+    private float height = 6.25f;
+    private float smoothSpeed = 10f;
+    private float releaseSpeed = 10f;
+    private float originalSpeed;
+    private float currentRotationSpeed = 0f;
+    private float rotationSpeed = 450f;
+    private float rotateInput;
+    private float toCameraSpeed = 500f;
+    private float floor = 5.25f;
+    private bool isRPressed = false;
 
-    public float throughPower = 1000;
-
-    private void Start()
+    void Start()
     {
         panCameraObject = GameObject.Find("Virtual Camera 3");
         if (panCameraObject != null)
             panCameraScript = panCameraObject.GetComponent<PanCamera>();
         else
             Debug.LogError("Object with PanCamera component not found!");
-    }
 
+        rb = GetComponent<Rigidbody>();
+        originalSpeed = rb.velocity.magnitude;
+        /*Physics.gravity = new Vector3(0, -20.0f, 0);*/
+    }
     private void Update()
     {
-        if (Input.GetMouseButton(0))
-            if (panCameraScript != null)
-                panCameraScript.enabled = false;
+        if (Input.GetMouseButton(0) && panCameraScript != null)
+            panCameraScript.enabled = false;
     }
 
     void OnMouseDown()
     {
         mZCoord = Camera.main.WorldToScreenPoint(transform.position).z;
-        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-        offset = transform.position - GetMouseAsWorldPoint();
-        defaultY = transform.position.y + 0.5f;
+        mOffset = transform.position - GetMouseAsWorldPoint();
+        newRot = transform.rotation;
     }
 
-    void OnMouseUp()
+    private void OnMouseUp()
     {
-        foreach (var selectedObject in ObjectSelections.Instance.objectSelected)
-        {
-            Rigidbody selectedRb = selectedObject.GetComponent<Rigidbody>();
-            if (selectedRb != null)
-            {
-                selectedRb.useGravity = true;
-                /*selectedRb.velocity += ((GetMouseAsWorldPoint() + offset) - transform.position) * Time.deltaTime * throughPower;*/
-            }
-        }
-    }
+        panCameraScript.enabled = true;
 
-    void OnMouseDrag()
-    {
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = new Vector3(curPosition.x, defaultY, curPosition.z);
+        rb.isKinematic = true;
+        rb.isKinematic = false; // fix problem with residual rotational motion
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
-            if (hit.collider.gameObject.tag == "Table" || hit.collider.gameObject.tag == "Selectable")
-            {
-                float rayDistance = hit.distance;
+        rb.useGravity = true;
+        currentRotationSpeed = 0f;
+        newPos = GetMouseAsWorldPoint() + mOffset;
+        Vector3 currPos = transform.position;
+        currPos.y = height;
+        newPos.y = height;
+        Vector3 direction = (newPos - currPos);
+        rb.velocity = direction * releaseSpeed;
 
-                if (rayDistance < 0.5f)
-                    defaultY += 0.5f - rayDistance;
-                if (rayDistance > 0.5f)
-                    defaultY -= rayDistance - 0.5f;
-                /*Debug.Log("ƒлина луча: " + rayDistance + "высота" + defaultY);*/
-                // ѕолучаем длину выпущенного луча до точки столкновени€ с землей
-
-                foreach (var selectedObject in ObjectSelections.Instance.objectSelected)
-                {
-                    Rigidbody selectedRb = selectedObject.GetComponent<Rigidbody>();
-                    if (selectedRb != null)
-                        selectedRb.useGravity = false;
-                    if (!Input.GetKey(KeyCode.LeftControl))
-                    {
-                        Vector3 currentRotation = selectedObject.transform.eulerAngles;
-                        selectedObject.transform.rotation = Quaternion.Euler(0f, currentRotation.y, 0f);
-                    }
-                    
-                }
-                transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
-            }
-            else
-                transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
-        }
-        Debug.DrawRay(transform.position, Vector3.down, color: Color.red);
     }
 
     private Vector3 GetMouseAsWorldPoint()
@@ -95,5 +71,61 @@ public class DragObjects : MonoBehaviour
         Vector3 mousePoint = Input.mousePosition;
         mousePoint.z = mZCoord;
         return Camera.main.ScreenToWorldPoint(mousePoint);
+    }
+
+    void OnMouseDrag()
+    {
+        rb.useGravity = false;
+        transform.rotation = newRot;
+        rotateInput = Input.GetAxis("Mouse ScrollWheel");
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            panCameraScript.enabled = false;
+            currentRotationSpeed = Mathf.Lerp(currentRotationSpeed, rotateInput * rotationSpeed, smoothSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up, currentRotationSpeed, Space.World);
+        }
+        else if (!Input.GetKey(KeyCode.LeftControl))
+        {
+            height -= rotateInput;
+            if (height < floor)
+                height = floor;
+        }
+        if (Input.GetKeyDown(KeyCode.R) || isRPressed == true)
+        {
+            isRPressed = true;
+
+            if (transform.rotation != Quaternion.Euler(0f, 0f, 0f))
+            {
+                Quaternion temp = Quaternion.Slerp(transform.rotation, Quaternion.identity, smoothSpeed * Time.deltaTime);
+
+                transform.rotation = Quaternion.Euler(temp.x, temp.y, 0f);
+                Debug.Log(transform.rotation + "True");
+
+            }
+            else
+            {
+                isRPressed = false;
+                Debug.Log("false");
+            }
+        }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            panCameraScript.enabled = false;
+            float curretnRotateInput = Input.GetAxis("Mouse ScrollWheel");
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0f;
+            cameraForward.Normalize();
+            transform.position += cameraForward * curretnRotateInput * toCameraSpeed * Time.deltaTime;
+        }
+        else
+        {
+            newPos = GetMouseAsWorldPoint() + mOffset;
+            newPos.y = height;
+
+            Vector3 smoothedPos = Vector3.Lerp(transform.position, newPos, smoothSpeed * 3 * Time.deltaTime);
+            rb.MovePosition(smoothedPos);
+            rb.velocity = (smoothedPos - transform.position).normalized * originalSpeed;
+            newRot = transform.rotation;
+        }
     }
 }

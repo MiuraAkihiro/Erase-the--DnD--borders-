@@ -32,7 +32,7 @@ public class RotateObject : MonoBehaviour
             }
 
             // Реализация вращения объекта вокруг его оси с помощью колесика мыши
-            float rotationSpeed = 100f;
+            float rotationSpeed = 500f;
             float rotateInput = Input.GetAxis("Mouse ScrollWheel");
 
             foreach (var selectedObject in ObjectSelections.Instance.objectSelected) // Fixed bug. Dont change object wtih direction ObjectSelections.Instance.objectSelected
