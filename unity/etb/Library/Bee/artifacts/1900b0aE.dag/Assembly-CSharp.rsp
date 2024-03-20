@@ -364,6 +364,7 @@
 "Assets/Scripts/ImportsScripts/ImageImport.cs"
 "Assets/Scripts/ObjectСontrolScripts/DragObjetcs.cs"
 "Assets/Scripts/ObjectСontrolScripts/Old Scripts/DragObject.cs"
+"Assets/Scripts/ObjectСontrolScripts/Old Scripts/MultiObjectControl.cs"
 "Assets/Scripts/ObjectСontrolScripts/Old Scripts/RotateObject.cs"
 "Assets/Scripts/SelectionObjects/DragSelection.cs"
 "Assets/Scripts/SelectionObjects/Object.cs"

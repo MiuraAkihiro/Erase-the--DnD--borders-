@@ -11,7 +11,7 @@ public class ObjectClick : MonoBehaviour
         myCam = Camera.main;
     }
 
-    
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -23,7 +23,9 @@ public class ObjectClick : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
+                    
                     ObjectSelections.Instance.ShiftClickSelect(hit.collider.gameObject);
+
                 }
                 else
                 {

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\CameraScripts\PanCamera.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\FirstPersonCamera.cs" />
+    <Compile Include="Assets\Scripts\ObjectСontrolScripts\Old Scripts\MultiObjectControl.cs" />
     <Compile Include="Assets\Scripts\SelectionObjects\ObjectClick.cs" />
     <Compile Include="Assets\Scripts\SelectionObjects\Object.cs" />
   </ItemGroup>
