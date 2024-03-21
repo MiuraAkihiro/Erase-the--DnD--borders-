@@ -62,17 +62,16 @@
     <Compile Include="Assets\Scripts\SelectionObjects\DragSelection.cs" />
     <Compile Include="Assets\Scripts\ObjectСontrolScripts\DragObjetcs.cs" />
     <Compile Include="Assets\Scripts\ImportsScripts\ImageImport.cs" />
-    <Compile Include="Assets\Scripts\ObjectСontrolScripts\Old Scripts\DragObject.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\CameraSwitcher.cs" />
-    <Compile Include="Assets\Scripts\ObjectСontrolScripts\Old Scripts\RotateObject.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\PanCamera.cs" />
     <Compile Include="Assets\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Scripts\CameraScripts\FirstPersonCamera.cs" />
-    <Compile Include="Assets\Scripts\ObjectСontrolScripts\Old Scripts\MultiObjectControl.cs" />
     <Compile Include="Assets\Scripts\SelectionObjects\ObjectClick.cs" />
+    <Compile Include="Assets\Scripts\ObjectСontrolScripts\Dice.cs" />
     <Compile Include="Assets\Scripts\SelectionObjects\Object.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Collection Dice set for role-playing games\Documentation\Readmy.txt" />
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\QuickOutline\Readme.txt" />
     <None Include="Assets\QuickOutline\Resources\Shaders\OutlineFill.shader" />
