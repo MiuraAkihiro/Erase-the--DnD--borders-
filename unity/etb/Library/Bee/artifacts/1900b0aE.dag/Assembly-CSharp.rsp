@@ -364,6 +364,7 @@
 "Assets/Scripts/ImportsScripts/ImageImport.cs"
 "Assets/Scripts/ObjectСontrolScripts/Dice.cs"
 "Assets/Scripts/ObjectСontrolScripts/DragObjetcs.cs"
+"Assets/Scripts/ObjectСontrolScripts/RollDiceSystem.cs"
 "Assets/Scripts/SelectionObjects/DragSelection.cs"
 "Assets/Scripts/SelectionObjects/Object.cs"
 "Assets/Scripts/SelectionObjects/ObjectClick.cs"
