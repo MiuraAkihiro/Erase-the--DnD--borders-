@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEditor.XR;
+using UnityEngine;
 
 public class DragObjects : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class DragObjects : MonoBehaviour
             panCameraScript.enabled = false;
         if (ObjectSelections.Instance.objectSelected.Count == 0)
             panCameraScript.enabled = true;
+        
     }
 
     private void OnMouseDown()
@@ -57,7 +59,7 @@ public class DragObjects : MonoBehaviour
     {
         Vector3 initialMousePosition = Input.mousePosition;
         float timeElapsed = 0f;
-        float waitFor = 0.5f; 
+        float waitFor = 0.5f;
 
         while (timeElapsed < waitFor && !isMouseButtonDown && Vector3.Distance(Input.mousePosition, initialMousePosition) < 0.1f)
         {
@@ -133,6 +135,7 @@ public class DragObjects : MonoBehaviour
                         isRPressed = false;
                 }
             }
+
             if (Input.GetKey(KeyCode.LeftControl))
             {
                 panCameraScript.enabled = false;

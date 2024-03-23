@@ -1,66 +1,55 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RollDiceSystem : MonoBehaviour
 {
-    private Dice SelectedDice;
-    public Button Button;
-    public TextMeshProUGUI Text;
-    public Vector3 Force;
-    public Vector3 Torque;
-    public int DiceRoll;
-    public bool DiceRolled;
-    private bool isContainsScript;
+    private Vector3 Force;
+    private Vector3 Torque;
 
-    void ButtonClick()
-    {
-        Force = new Vector3(0, Random.Range(100, 120), 0);
-        Torque = new Vector3(Random.Range(100, 1000), Random.Range(100, 200), Random.Range(100, 1000));
-        if(SelectedDice != null)
-        {
-            SelectedDice.GetComponent<Rigidbody>().AddForce(Force * Random.Range(5, 10));
-            SelectedDice.GetComponent<Rigidbody>().AddTorque(Torque * Random.Range(5, 100));
-            SelectedDice.GetComponent<Rigidbody>().WakeUp();
-
-            SelectedDice.diceSleeping = false;
-
-            DiceRolled = true;
-        }
-        
-    }
-
-    void Start()
-    {
-        Button btn = Button.GetComponent<Button>();
-        btn.onClick.AddListener(ButtonClick);
-    }
-
+    public List<GameObject> diceSelectedList = new List<GameObject>();
     void Update()
     {
-        // Проверяем, был ли сделан клик мышью
-        if (Input.GetMouseButtonDown(0))
+        foreach (var selectedObject in ObjectSelections.Instance.objectSelected)
         {
-            // Создаем луч, исходящий из точки, где кликнули по экрану
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Проверяем пересечение луча с объектами на слое LayerMask
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (selectedObject.GetComponent<Dice>() != null)
             {
-                if (hit.collider.GetComponent<Dice>())
-                    SelectedDice = hit.collider.GetComponent<Dice>();
-
+                if (!diceSelectedList.Contains(selectedObject))
+                    diceSelectedList.Add(selectedObject);
             }
         }
-
-        if (DiceRolled == true && SelectedDice.diceSleeping == true)
+        if(diceSelectedList != null)
         {
-            DiceRoll = SelectedDice.diceRoll;
-            Text.SetText("Dice Rolled: " + DiceRoll);
-            DiceRolled = false;
+            foreach (var selectedDice in diceSelectedList)
+            {
+                if (!ObjectSelections.Instance.objectSelected.Contains(selectedDice))
+                {
+                    diceSelectedList.Remove(selectedDice);
+                    break;
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            foreach(var selectedDice in diceSelectedList)
+            {
+                RollDice(selectedDice.GetComponent<Dice>());
+            }
+        }
+    }
+
+    public void RollDice(Dice selectedDice)
+    {
+        Force = new Vector3(0, 100, 0);
+        Torque = new Vector3(100, 100, 100);
+        if (selectedDice != null)
+        {
+            selectedDice.GetComponent<Rigidbody>().AddForce(Force * 7);
+            selectedDice.GetComponent<Rigidbody>().AddTorque(Torque * Random.Range(5, 100));
+            selectedDice.GetComponent<Rigidbody>().WakeUp();
+
+            selectedDice.diceSleeping = false;
+
         }
     }
 }
