@@ -3,15 +3,11 @@ using UnityEngine;
 public class Dice : MonoBehaviour
 {
     public bool diceSleeping;
-    public bool deterministicRoll;
     public int diceRoll;
-    public int diceRollDeterministic;
     public diceTypeList diceType;
     private float topSide;
-    [Range(0, 10000)]
-    public float edgelandingforce = 1000f;
-    public bool edgelandinginverter = false;
     public Rigidbody myRigidbody;
+    public bool isResultOutput = false;
 
     public enum diceTypeList
     {
@@ -27,6 +23,7 @@ public class Dice : MonoBehaviour
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody>();
+        
     }
 
     void Update()
@@ -44,17 +41,19 @@ public class Dice : MonoBehaviour
                     {
                         topSide = getChild.position.y;
                         diceRoll = index + 1;
-
-                        Debug.Log("Roll:" + diceRoll);
                     }
                 }
             }
             diceSleeping = true;
+            if (!isResultOutput)
+            {
+                RollDiceSystem.Instance.totalNumber += diceRoll;
+                isResultOutput = true;
+            }
         }
         else
         {
             diceSleeping = false;
         }
-
     }
 }
